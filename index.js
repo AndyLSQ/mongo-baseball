@@ -76,7 +76,9 @@ app.post('/create', async function(req, res){
 
 // READ
 app.get('/', async function(req, res) {
-	const players = await Player.find()
+	console.log('before')
+	const players = await Player.find({})
+	console.log('after')
 	let playerList =  `<h1>Player List</h1>
 		<ul>`
 	players.forEach( function(player) {
