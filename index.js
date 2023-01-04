@@ -13,7 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 mongoConnect().catch(err => console.log(err));
 
 async function mongoConnect() {
-  await mongoose.connect(`mongodb+srv://andylsq:knet4gech!plex@ae-cluster.pgj6ylt.mongodb.net/baseball-app`);
+	const {MONGOHOST, MONGOUSER, MONGOPASSWORD, MONGOPORT, MONGO_URL} = process.env
+  await mongoose.connect(`${MONGO_URL}/baseball-app`);
 }
 
 const baseballSchema = new mongoose.Schema({
@@ -148,4 +149,4 @@ app.get('/api/v1/players', async function(req, res) {
 	res.send(players)
 })
 
-app.listen(process.env.PORT);
+app.listen(process.env.MONGOPORT);
