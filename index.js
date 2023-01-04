@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 mongoConnect().catch(err => console.log(err));
 
 async function mongoConnect() {
-  await mongoose.connect(`mongodb+srv://andylsq:${process.env.MONGO_PW}@ae-cluster.pgj6ylt.mongodb.net/baseball-app`);
+  await mongoose.connect(`mongodb+srv://andylsq:knet4gech!plex@ae-cluster.pgj6ylt.mongodb.net/baseball-app`);
 }
 
 const baseballSchema = new mongoose.Schema({
