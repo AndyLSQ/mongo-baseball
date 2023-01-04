@@ -146,4 +146,4 @@ app.get('/api/v1/players', async function(req, res) {
 	res.send(players)
 })
 
-app.listen(1982);
+app.listen(process.env.PORT);
