@@ -14,7 +14,7 @@ mongoConnect().catch(err => console.log(err));
 
 async function mongoConnect() {
 	const {MONGOHOST, MONGOUSER, MONGOPASSWORD, MONGOPORT, MONGO_URL} = process.env
-  await mongoose.connect(`${MONGO_URL}/baseball-app`);
+  await mongoose.connect(`mongodb://${MONGOUSER}:${MONGOPASSWORD}@${MONGOHOST}:${MONGOPORT}`);
 }
 
 const baseballSchema = new mongoose.Schema({
