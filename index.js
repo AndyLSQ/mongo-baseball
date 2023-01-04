@@ -149,4 +149,4 @@ app.get('/api/v1/players', async function(req, res) {
 	res.send(players)
 })
 
-app.listen(process.env.MONGOPORT);
+app.listen(process.env.PORT);
