@@ -15,7 +15,7 @@ async function mongoConnect() {
 	const {MONGOHOST, MONGOUSER, MONGOPASSWORD, MONGOPORT, MONGO_URL} = process.env
 	const endpoint = `mongodb://${MONGOUSER}:${MONGOPASSWORD}@${MONGOHOST}:${MONGOPORT}`
 	console.log(endpoint);
-  await mongoose.connect(endpoint);
+  await mongoose.connect(`mongodb://mongo:hPWLpKvoOUBBnJ2VKnPU@containers-us-west-104.railway.app:7232`);
 }
 
 mongoConnect().catch(err => console.log(err));
