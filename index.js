@@ -14,7 +14,9 @@ mongoConnect().catch(err => console.log(err));
 
 async function mongoConnect() {
 	const {MONGOHOST, MONGOUSER, MONGOPASSWORD, MONGOPORT, MONGO_URL} = process.env
-  await mongoose.connect(`mongodb://${MONGOUSER}:${MONGOPASSWORD}@${MONGOHOST}:${MONGOPORT}`);
+	const endpoint = `mongodb://${MONGOUSER}:${MONGOPASSWORD}@${MONGOHOST}:${MONGOPORT}`
+	console.log(endpoint);
+  await mongoose.connect(endpoint);
 }
 
 const baseballSchema = new mongoose.Schema({
@@ -36,6 +38,28 @@ const nav = `
 	// const player41 = new Player({name: "Chris Sale", number: 41, position: "p"})
 	// console.log(player41)
 	// await player41.save();
+
+// READ
+app.get('/', async function(req, res) {
+	console.log('before')
+	const players = await Player.find({})
+	console.log('after')
+	let playerList =  `<h1>Player List</h1>
+		<ul>`
+	players.forEach( function(player) {
+		playerList += `
+		<li>
+			<p><strong>Name:</strong> ${player.name}</p>
+			<p><strong>Number:</strong> ${player.number}</p>
+			<p><strong>Position:</strong> ${player.position}</p>
+			<p><a href="/update/${player.name}">Update</a> <a href="/delete/${player.name}">Delete</a></p>
+		</li>`
+	})
+	playerList += `</ul>`;
+
+	const page = nav + playerList;
+	res.send(page);
+})
 
 // CREATE
 app.get('/create', async function(req, res) {
@@ -75,27 +99,6 @@ app.post('/create', async function(req, res){
 	res.send(page);
 })
 
-// READ
-app.get('/', async function(req, res) {
-	console.log('before')
-	const players = await Player.find({})
-	console.log('after')
-	let playerList =  `<h1>Player List</h1>
-		<ul>`
-	players.forEach( function(player) {
-		playerList += `
-		<li>
-			<p><strong>Name:</strong> ${player.name}</p>
-			<p><strong>Number:</strong> ${player.number}</p>
-			<p><strong>Position:</strong> ${player.position}</p>
-			<p><a href="/update/${player.name}">Update</a> <a href="/delete/${player.name}">Delete</a></p>
-		</li>`
-	})
-	playerList += `</ul>`;
-
-	const page = nav + playerList;
-	res.send(page);
-})
 
 // UPDATE
 // (??) how to use a UID here??
@@ -149,4 +152,6 @@ app.get('/api/v1/players', async function(req, res) {
 	res.send(players)
 })
 
-app.listen(process.env.PORT);
+const PORT = process.env.PORT;
+
+app.listen(PORT);
