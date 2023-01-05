@@ -10,7 +10,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoConnect().catch(err => console.log(err));
 
 async function mongoConnect() {
 	const {MONGOHOST, MONGOUSER, MONGOPASSWORD, MONGOPORT, MONGO_URL} = process.env
@@ -18,6 +17,10 @@ async function mongoConnect() {
 	console.log(endpoint);
   await mongoose.connect(endpoint);
 }
+
+mongoConnect().catch(err => console.log(err));
+
+
 
 const baseballSchema = new mongoose.Schema({
 	name: String,
